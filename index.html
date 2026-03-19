@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Aïd Moubarak</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -10,29 +11,16 @@
 <style>
 body {
     margin:0;
-    background: radial-gradient(circle, #020617, #000);
+    background: radial-gradient(circle at top, #020617, #000);
     overflow:hidden;
-    color:white;
+    font-family: sans-serif;
 }
-
-/* 🎭 rideaux */
-.curtain {
-    position:fixed;
-    top:0;
-    width:50%;
-    height:100%;
-    background:#020617;
-    z-index:10;
-    transition:all 2s ease;
-}
-.left { left:0; }
-.right { right:0; }
 
 /* 🌙 lune */
 .moon {
     position:absolute;
-    top:50px;
-    right:50px;
+    top:40px;
+    right:40px;
     width:100px;
     height:100px;
     background:#facc15;
@@ -40,11 +28,16 @@ body {
     box-shadow:0 0 50px #facc15;
 }
 
-/* ✨ animation */
+/* ✨ glow texte */
+.glow {
+    text-shadow:0 0 10px #22c55e,0 0 20px #22c55e;
+}
+
+/* animation */
 .fade {
     opacity:0;
-    transform:translateY(20px);
-    transition:1.5s;
+    transform:translateY(30px);
+    transition:1s;
 }
 .show {
     opacity:1;
@@ -53,37 +46,33 @@ body {
 </style>
 </head>
 
-<body>
-
-<div class="curtain left" id="left"></div>
-<div class="curtain right" id="right"></div>
+<body class="text-white flex items-center justify-center h-screen">
 
 <div class="moon"></div>
 
-<div class="flex items-center justify-center h-screen text-center px-4">
-    <div>
-        <h1 id="title" class="text-4xl md:text-6xl text-green-400 mb-6 fade">
-            🌙 Aïd Moubarak
-        </h1>
+<div class="text-center px-4">
 
-        <p class="text-lg md:text-2xl mb-6 fade" id="msg">
-            Clique pour découvrir ton message 🎁
-        </p>
+    <h1 id="title" class="text-4xl md:text-6xl font-bold mb-6 glow fade">
+        🌙 Aïd Moubarak
+    </h1>
 
-        <button onclick="openCurtain()" 
-        class="bg-green-500 px-6 py-3 rounded-xl text-lg">
-        👉 Ouvrir
-        </button>
-    </div>
+    <p id="msg" class="text-lg md:text-2xl mb-8 fade">
+        Clique pour découvrir ton message 🎁
+    </p>
+
+    <button onclick="start()" 
+    class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl text-lg transition">
+        ▶️ Ouvrir
+    </button>
+
 </div>
 
-<!-- 🎧 musique -->
 <audio id="music" loop>
     <source src="music/aid.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// 🎯 prénom dynamique
+// prénom dynamique
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 
@@ -91,33 +80,26 @@ if(name){
     document.getElementById("title").innerHTML = "🌙 Aïd Moubarak " + name;
 }
 
-// 🎭 ouvrir rideau
-function openCurtain(){
-    document.getElementById("left").style.width = "0";
-    document.getElementById("right").style.width = "0";
-
+function start(){
     document.getElementById("music").play();
 
-    // afficher contenu
-    setTimeout(()=>{
-        document.querySelectorAll('.fade').forEach(el=>{
-            el.classList.add('show');
-        });
+    document.querySelectorAll('.fade').forEach(el=>{
+        el.classList.add('show');
+    });
 
-        document.getElementById("msg").innerHTML =
-        "✨ Que cette fête t'apporte joie, bonheur et réussite ✨";
-    },1000);
+    document.getElementById("msg").innerHTML =
+    "✨ Que cette fête t'apporte joie, bonheur et réussite ✨";
 
     fireworks();
 }
 
-// 🎆 feu d’artifice
+// 🎆 effet premium
 function fireworks(){
     setInterval(()=>{
         let p=document.createElement("div");
         p.style.position="absolute";
-        p.style.width="6px";
-        p.style.height="6px";
+        p.style.width="5px";
+        p.style.height="5px";
         p.style.background="gold";
         p.style.top=Math.random()*window.innerHeight+"px";
         p.style.left=Math.random()*window.innerWidth+"px";
@@ -130,7 +112,7 @@ function fireworks(){
 }
 
 // ⭐ étoiles
-for(let i=0;i<80;i++){
+for(let i=0;i<60;i++){
     let s=document.createElement("div");
     s.style.position="absolute";
     s.style.width="2px";
