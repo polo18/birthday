@@ -4,69 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aïd Moubarak</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
+
+<title>Aïd Moubarak</title>
 
 <style>
 body {
-    margin:0;
-    background: radial-gradient(circle at top, #020617, #000);
+    background: linear-gradient(135deg,#020617,#0f172a);
     overflow:hidden;
-    font-family: sans-serif;
+    color:white;
 }
 
 /* 🌙 lune */
 .moon {
     position:absolute;
-    top:40px;
+    top:50px;
     right:40px;
-    width:100px;
-    height:100px;
+    width:80px;
+    height:80px;
     background:#facc15;
     border-radius:50%;
-    box-shadow:0 0 50px #facc15;
-}
-
-/* ✨ glow texte */
-.glow {
-    text-shadow:0 0 10px #22c55e,0 0 20px #22c55e;
-}
-
-/* animation */
-.fade {
-    opacity:0;
-    transform:translateY(30px);
-    transition:1s;
-}
-.show {
-    opacity:1;
-    transform:translateY(0);
+    box-shadow:0 0 40px #facc15;
 }
 </style>
 </head>
 
-<body class="text-white flex items-center justify-center h-screen">
+<body class="flex items-center justify-center h-screen">
 
 <div class="moon"></div>
 
-<div class="text-center px-4">
+<div class="text-center px-6">
 
-    <h1 id="title" class="text-4xl md:text-6xl font-bold mb-6 glow fade">
+    <h1 id="title" class="text-4xl md:text-6xl font-bold text-green-400 mb-6">
         🌙 Aïd Moubarak
     </h1>
 
-    <p id="msg" class="text-lg md:text-2xl mb-8 fade">
+    <p id="msg" class="text-lg md:text-2xl mb-8 text-gray-300">
         Clique pour découvrir ton message 🎁
     </p>
 
     <button onclick="start()" 
-    class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl text-lg transition">
+    class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl text-lg shadow-xl">
         ▶️ Ouvrir
     </button>
 
 </div>
 
+<!-- 🎧 musique -->
 <audio id="music" loop>
     <source src="music/aid.mp3" type="audio/mpeg">
 </audio>
@@ -83,12 +67,8 @@ if(name){
 function start(){
     document.getElementById("music").play();
 
-    document.querySelectorAll('.fade').forEach(el=>{
-        el.classList.add('show');
-    });
-
     document.getElementById("msg").innerHTML =
-    "✨ Que cette fête t'apporte joie, bonheur et réussite ✨";
+    "✨ Que cette fête t'apporte joie, paix et réussite ✨";
 
     fireworks();
 }
@@ -98,29 +78,17 @@ function fireworks(){
     setInterval(()=>{
         let p=document.createElement("div");
         p.style.position="absolute";
-        p.style.width="5px";
-        p.style.height="5px";
-        p.style.background="gold";
+        p.style.width="4px";
+        p.style.height="4px";
+        p.style.background="white";
         p.style.top=Math.random()*window.innerHeight+"px";
         p.style.left=Math.random()*window.innerWidth+"px";
         p.style.borderRadius="50%";
-        p.style.boxShadow="0 0 20px gold";
+        p.style.boxShadow="0 0 15px white";
         document.body.appendChild(p);
 
-        setTimeout(()=>p.remove(),1000);
-    },200);
-}
-
-// ⭐ étoiles
-for(let i=0;i<60;i++){
-    let s=document.createElement("div");
-    s.style.position="absolute";
-    s.style.width="2px";
-    s.style.height="2px";
-    s.style.background="white";
-    s.style.top=Math.random()*window.innerHeight+"px";
-    s.style.left=Math.random()*window.innerWidth+"px";
-    document.body.appendChild(s);
+        setTimeout(()=>p.remove(),800);
+    },150);
 }
 </script>
 
