@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Aïd Moubarak</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -10,129 +11,131 @@
 <style>
 body {
   background: linear-gradient(135deg, #0f172a, #1e293b);
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-/* Texte animé */
+/* écran intro */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: #020617;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+  transition: all 1s ease;
+}
+
+/* message caché */
+#mainContent {
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+/* glow */
 .glow {
-  text-shadow: 0 0 10px #fff, 0 0 20px #22c55e, 0 0 30px #22c55e;
+  text-shadow: 0 0 10px #fff, 0 0 20px #22c55e;
 }
 
-/* Animation flottante */
-.float {
-  animation: float 3s ease-in-out infinite;
+/* bouton */
+.btn-open {
+  animation: pulse 1.5s infinite;
 }
-@keyframes float {
-  0%,100% {transform: translateY(0);}
-  50% {transform: translateY(-15px);}
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
 }
 
-/* Confetti */
+/* confetti */
 .confetti {
   position: fixed;
-  width: 10px;
-  height: 10px;
-  background: red;
+  width: 8px;
+  height: 8px;
   top: -10px;
   animation: fall linear infinite;
 }
 @keyframes fall {
-  to {transform: translateY(100vh);}
-}
-
-/* Icônes bas */
-.icons-bottom span {
-  display: inline-block;
-  animation: bounce 2s infinite;
-  font-size: 30px;
-}
-.icons-bottom span:nth-child(2){animation-delay:0.2s}
-.icons-bottom span:nth-child(3){animation-delay:0.4s}
-.icons-bottom span:nth-child(4){animation-delay:0.6s}
-.icons-bottom span:nth-child(5){animation-delay:0.8s}
-
-@keyframes bounce {
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
+  to { transform: translateY(100vh); }
 }
 </style>
 </head>
 
-<body class="text-white text-center flex flex-col justify-center items-center min-h-screen px-4">
+<body class="text-white text-center flex items-center justify-center min-h-screen">
 
 <!-- 🎶 AUDIO -->
 <audio id="music" loop>
     <source src="eidunsaeed.MP3" type="audio/mpeg">
 </audio>
-<!-- Bouton son -->
 
-<script>
-const audio = document.getElementById("music");
+<!-- 🚪 INTRO -->
+<div id="intro">
+  <h1 class="text-3xl mb-6 glow">✨ Message spécial ✨</h1>
 
-// tentative auto
-audio.play().catch(() => {
-  // fallback click
-  document.body.addEventListener("click", () => {
-    audio.play();
-  }, { once: true });
-});
-</script>
-  
-<!-- 🎇 CONFETTI -->
-<script>
-for(let i=0;i<40;i++){
-  let c=document.createElement("div");
-  c.className="confetti";
-  c.style.left=Math.random()*100+"%";
-  c.style.animationDuration=(2+Math.random()*3)+"s";
-  c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-  document.body.appendChild(c);
-}
-</script>
+  <button onclick="startApp()" 
+  class="btn-open bg-green-500 px-6 py-3 rounded-xl text-xl shadow-lg">
+    🎁 Ouvrir
+  </button>
+</div>
 
-<!-- 🌙 TITRE -->
-<h1 class="text-4xl md:text-6xl font-bold glow mb-6 float">
+<!-- 💌 CONTENU -->
+<div id="mainContent" class="px-4">
+
+<h1 class="text-4xl md:text-6xl font-bold glow mb-6">
 🌙 AÏD MOUBARAK 🌙
 </h1>
 
-<!-- 👤 NOM -->
-<h2 class="text-2xl md:text-3xl mb-4 font-semibold text-yellow-400">
-✨ By Mouloud ZIDANE ✨
-</h2>
+<div class="bg-white/10 p-6 rounded-xl max-w-lg mx-auto">
+<p class="text-lg leading-relaxed">
 
-<!-- 💌 MESSAGE -->
-<div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg max-w-lg">
-
-<p class="text-lg md:text-xl leading-relaxed">
-
-🕌 Que cette fête sacrée illumine votre cœur de joie  
-<br><br>
-💖 Qu’Il vous accorde santé, bonheur et réussite  
-<br><br>
-🎉 Profitez de chaque instant avec votre famille  
+🕌 Que cette fête sacrée illumine votre cœur  
 <br><br>
 
-<span class="text-green-400 font-bold text-2xl">
-✨ AÏD MOUBARAK ✨
+💖 Santé, bonheur et réussite  
+<br><br>
+🌙 Paix et bénédictions infinies  
+<br><br>
+🎉 Profitez avec votre famille  
+
+<br><br>
+<span class="text-green-400 text-2xl font-bold">
+✨ AÏD MUBARAK ✨ <br>By Mouloud ZIDANE
 </span>
 
 </p>
 </div>
 
-<!-- 🎉 ICÔNES BAS -->
-<div class="icons-bottom fixed bottom-4 left-0 right-0 flex justify-center gap-6">
-  <span>🕌</span>
-  <span>🌙</span>
-  <span>🎉</span>
-  <span>✨</span>
-  <span>🤲</span>
 </div>
 
-<!-- 🔊 FIX AUTOPLAY -->
+<!-- 🎇 SCRIPT -->
 <script>
-document.body.addEventListener("click", function() {
+function startApp() {
+
+  // lancer musique
   document.getElementById("music").play();
-});
+
+  // cacher intro
+  document.getElementById("intro").style.opacity = "0";
+  setTimeout(() => {
+    document.getElementById("intro").style.display = "none";
+  }, 800);
+
+  // afficher contenu
+  setTimeout(() => {
+    document.getElementById("mainContent").style.opacity = "1";
+  }, 500);
+
+  // confetti
+  for(let i=0;i<40;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"%";
+    c.style.animationDuration=(2+Math.random()*3)+"s";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(c);
+  }
+}
 </script>
 
 </body>
