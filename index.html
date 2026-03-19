@@ -3,168 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aïd Moubarak</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<title>Aïd Moubarak</title>
-
 <style>
 body {
-    background: radial-gradient(circle, #020617, #000);
-    overflow: hidden;
-    color: white;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  overflow-x: hidden;
 }
 
-/* 🌙 lune */
-.moon {
-    position:absolute;
-    top:40px;
-    right:40px;
-    width:80px;
-    height:80px;
-    background:#facc15;
-    border-radius:50%;
-    box-shadow:0 0 40px #facc15;
+/* Texte animé */
+.glow {
+  text-shadow: 0 0 10px #fff, 0 0 20px #22c55e, 0 0 30px #22c55e;
 }
 
-/* ✨ texte glow */
-.big-text {
-    font-size: 2.5rem;
-    line-height: 1.5;
-    animation: glow 2s infinite alternate;
+/* Animation flottante */
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% {transform: translateY(0);}
+  50% {transform: translateY(-15px);}
 }
 
-@keyframes glow {
-    from { text-shadow: 0 0 10px #22c55e; }
-    to { text-shadow: 0 0 30px #22c55e; }
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: red;
+  top: -10px;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to {transform: translateY(100vh);}
 }
 
-/* 🎉 icônes améliorées */
-.icon {
-    position:absolute;
-    font-size:28px;
-    animation: rise 4s ease-out forwards;
+/* Icônes bas */
+.icons-bottom span {
+  display: inline-block;
+  animation: bounce 2s infinite;
+  font-size: 30px;
 }
+.icons-bottom span:nth-child(2){animation-delay:0.2s}
+.icons-bottom span:nth-child(3){animation-delay:0.4s}
+.icons-bottom span:nth-child(4){animation-delay:0.6s}
+.icons-bottom span:nth-child(5){animation-delay:0.8s}
 
-@keyframes rise {
-    0% {
-        transform: translateY(0) scale(0.5) rotate(0deg);
-        opacity: 0;
-    }
-    20% {
-        opacity:1;
-    }
-    100% {
-        transform: translateY(-250px) scale(1.5) rotate(360deg);
-        opacity:0;
-    }
+@keyframes bounce {
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
 </style>
 </head>
 
-<body class="flex items-center justify-center h-screen">
+<body class="text-white text-center flex flex-col justify-center items-center min-h-screen px-4">
 
-<div class="moon"></div>
-
-<div class="text-center px-6 max-w-xl">
-
-    <h1 id="title" class="text-4xl md:text-6xl font-bold text-green-400 mb-6">
-        🌙 Aïd Moubarak
-    </h1>
-
-    <p id="msg" class="text-xl md:text-2xl mb-8 text-gray-300">
-        Clique pour voir ton message 🎁
-    </p>
-
-    <button id="btn" onclick="start()" 
-    class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl text-lg shadow-xl transition">
-        ▶️ Ouvrir
-    </button>
-
-</div>
-
-<!-- 🎧 musique -->
+<!-- 🎶 AUDIO -->
 <audio id="music" loop>
     <source src="eidunsaeed.MP3" type="audio/mpeg">
 </audio>
 
+<!-- 🎇 CONFETTI -->
 <script>
-// prénom dynamique
-const params = new URLSearchParams(window.location.search);
-const name = params.get("name");
-
-if(name){
-    document.getElementById("title").innerHTML = "🌙 Aïd Moubarak " + name;
+for(let i=0;i<40;i++){
+  let c=document.createElement("div");
+  c.className="confetti";
+  c.style.left=Math.random()*100+"%";
+  c.style.animationDuration=(2+Math.random()*3)+"s";
+  c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+  document.body.appendChild(c);
 }
+</script>
 
-// 🚀 lancement
-function start(){
-    document.getElementById("music").play();
+<!-- 🌙 TITRE -->
+<h1 class="text-4xl md:text-6xl font-bold glow mb-6 float">
+🌙 AÏD MOUBARAK 🌙
+</h1>
 
-    document.getElementById("btn").style.display = "none";
+<!-- 👤 NOM -->
+<h2 class="text-2xl md:text-3xl mb-4 font-semibold text-yellow-400">
+✨ De votre ami ✨
+</h2>
 
-    // 💎 message amélioré
-    document.getElementById("msg").innerHTML =
-    "✨ À l’occasion de l’Aïd El Fitr 🌙<br><br>" +
-    "Je te souhaite une fête remplie de joie, de paix et de bonheur 🤲<br><br>" +
-    "Que cette journée sacrée t’apporte réussite, santé et prospérité 💫<br><br>" +
-    "💼 By MOULOUD Zidane<br><br>" +
-    "🎉 Aïd Moubarak ! 🎉";
+<!-- 💌 MESSAGE -->
+<div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg max-w-lg">
 
-    document.getElementById("msg").classList.add("big-text");
+<p class="text-lg md:text-xl leading-relaxed">
 
-    fireworks();
-    icons();
-}
+🕌 Que cette fête sacrée illumine votre cœur de joie  
+<br><br>
+🤲 Qu’Allah accepte vos prières et vos bonnes actions  
+<br><br>
+💖 Qu’Il vous accorde santé, bonheur et réussite  
+<br><br>
+🌙 Que votre maison soit remplie de paix et de bénédictions  
+<br><br>
+🎉 Profitez de chaque instant avec votre famille  
+<br><br>
 
-// 🎆 feu d’artifice
-function fireworks(){
-    setInterval(()=>{
-        let p=document.createElement("div");
-        p.style.position="absolute";
-        p.style.width="5px";
-        p.style.height="5px";
-        p.style.background="gold";
-        p.style.top=Math.random()*window.innerHeight+"px";
-        p.style.left=Math.random()*window.innerWidth+"px";
-        p.style.borderRadius="50%";
-        p.style.boxShadow="0 0 20px gold";
-        document.body.appendChild(p);
+<span class="text-green-400 font-bold text-2xl">
+✨ AÏD MOUBARAK ✨
+</span>
 
-        setTimeout(()=>p.remove(),1000);
-    },150);
-}
+</p>
+</div>
 
-// 🎉 icônes visibles
-function icons(){
-    const emojis = ["🌙","✨","🎉","🕌","💫","⭐","🤲"];
+<!-- 🎉 ICÔNES BAS -->
+<div class="icons-bottom fixed bottom-4 left-0 right-0 flex justify-center gap-6">
+  <span>🕌</span>
+  <span>🌙</span>
+  <span>🎉</span>
+  <span>✨</span>
+  <span>🤲</span>
+</div>
 
-    setInterval(()=>{
-        let icon = document.createElement("div");
-        icon.className = "icon";
-        icon.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
-
-        // ✅ commencer visible en bas
-        icon.style.left = Math.random()*window.innerWidth + "px";
-        icon.style.bottom = "0px";
-
-        document.body.appendChild(icon);
-
-        setTimeout(()=>icon.remove(),4000);
-    },300);
-}
-
-// ⭐ étoiles fond
-for(let i=0;i<70;i++){
-    let s=document.createElement("div");
-    s.style.position="absolute";
-    s.style.width="2px";
-    s.style.height="2px";
-    s.style.background="white";
-    s.style.top=Math.random()*window.innerHeight+"px";
-    s.style.left=Math.random()*window.innerWidth+"px";
-    document.body.appendChild(s);
-}
+<!-- 🔊 FIX AUTOPLAY -->
+<script>
+document.body.addEventListener("click", function() {
+  document.getElementById("music").play();
+});
 </script>
 
 </body>
