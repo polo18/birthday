@@ -9,90 +9,115 @@
 
 <style>
 body {
-    background: linear-gradient(135deg,#020617,#020617,#0f172a);
-    overflow: hidden;
+    margin:0;
+    background: radial-gradient(circle, #020617, #000);
+    overflow:hidden;
+    color:white;
 }
 
-/* animation bulle SMS */
-.bubble {
-    animation: slideUp 1.5s ease;
+/* 🎭 rideaux */
+.curtain {
+    position:fixed;
+    top:0;
+    width:50%;
+    height:100%;
+    background:#020617;
+    z-index:10;
+    transition:all 2s ease;
 }
+.left { left:0; }
+.right { right:0; }
 
-@keyframes slideUp {
-    from {opacity:0; transform:translateY(50px);}
-    to {opacity:1; transform:translateY(0);}
-}
-
-/* lune */
+/* 🌙 lune */
 .moon {
     position:absolute;
-    top:30px;
-    right:30px;
-    width:80px;
-    height:80px;
+    top:50px;
+    right:50px;
+    width:100px;
+    height:100px;
     background:#facc15;
     border-radius:50%;
-    box-shadow:0 0 40px #facc15;
+    box-shadow:0 0 50px #facc15;
+}
+
+/* ✨ animation */
+.fade {
+    opacity:0;
+    transform:translateY(20px);
+    transition:1.5s;
+}
+.show {
+    opacity:1;
+    transform:translateY(0);
 }
 </style>
 </head>
 
-<body class="flex items-center justify-center h-screen text-white">
+<body>
+
+<div class="curtain left" id="left"></div>
+<div class="curtain right" id="right"></div>
 
 <div class="moon"></div>
 
-<div class="w-full max-w-md p-4">
-
-    <!-- message style SMS -->
-    <div class="bg-gray-800 p-4 rounded-2xl shadow-xl space-y-3">
-
-        <div class="bubble bg-green-500 text-black p-3 rounded-xl w-fit">
+<div class="flex items-center justify-center h-screen text-center px-4">
+    <div>
+        <h1 id="title" class="text-4xl md:text-6xl text-green-400 mb-6 fade">
             🌙 Aïd Moubarak
-        </div>
+        </h1>
 
-        <div id="msg" class="bubble bg-gray-700 p-3 rounded-xl w-fit">
-            Que cette fête vous apporte joie et réussite ✨
-        </div>
+        <p class="text-lg md:text-2xl mb-6 fade" id="msg">
+            Clique pour découvrir ton message 🎁
+        </p>
 
-        <div class="bubble text-sm text-gray-400">
-            - Garage Zidane Services
-        </div>
-    </div>
-
-    <!-- bouton -->
-    <div class="text-center mt-6">
-        <button onclick="startExperience()" 
-        class="bg-green-500 px-6 py-3 rounded-xl">
-        ▶️ Voir le message
+        <button onclick="openCurtain()" 
+        class="bg-green-500 px-6 py-3 rounded-xl text-lg">
+        👉 Ouvrir
         </button>
     </div>
 </div>
 
 <!-- 🎧 musique -->
 <audio id="music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9bde19.mp3" type="audio/mpeg">
+    <source src="music/aid.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// prénom dynamique
+// 🎯 prénom dynamique
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 
 if(name){
-    document.getElementById("msg").innerHTML =
-    "Aïd Moubarak " + name + " 🌙✨<br>Que cette fête t'apporte bonheur";
+    document.getElementById("title").innerHTML = "🌙 Aïd Moubarak " + name;
 }
 
-// lancer expérience
-function startExperience(){
+// 🎭 ouvrir rideau
+function openCurtain(){
+    document.getElementById("left").style.width = "0";
+    document.getElementById("right").style.width = "0";
+
     document.getElementById("music").play();
 
-    // 🎆 explosion effet
-    for(let i=0;i<30;i++){
+    // afficher contenu
+    setTimeout(()=>{
+        document.querySelectorAll('.fade').forEach(el=>{
+            el.classList.add('show');
+        });
+
+        document.getElementById("msg").innerHTML =
+        "✨ Que cette fête t'apporte joie, bonheur et réussite ✨";
+    },1000);
+
+    fireworks();
+}
+
+// 🎆 feu d’artifice
+function fireworks(){
+    setInterval(()=>{
         let p=document.createElement("div");
         p.style.position="absolute";
-        p.style.width="5px";
-        p.style.height="5px";
+        p.style.width="6px";
+        p.style.height="6px";
         p.style.background="gold";
         p.style.top=Math.random()*window.innerHeight+"px";
         p.style.left=Math.random()*window.innerWidth+"px";
@@ -101,11 +126,11 @@ function startExperience(){
         document.body.appendChild(p);
 
         setTimeout(()=>p.remove(),1000);
-    }
+    },200);
 }
 
-// étoiles
-for(let i=0;i<50;i++){
+// ⭐ étoiles
+for(let i=0;i<80;i++){
     let s=document.createElement("div");
     s.style.position="absolute";
     s.style.width="2px";
