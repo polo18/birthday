@@ -1,3 +1,4 @@
+```html id="8m4c2x"
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -27,9 +28,10 @@ body {
     box-shadow:0 0 40px #facc15;
 }
 
-/* ✨ animation message */
+/* ✨ texte glow */
 .big-text {
-    font-size: 3rem;
+    font-size: 2.5rem;
+    line-height: 1.5;
     animation: glow 2s infinite alternate;
 }
 
@@ -38,17 +40,25 @@ body {
     to { text-shadow: 0 0 30px #22c55e; }
 }
 
-/* 🎉 icônes flottantes */
+/* 🎉 icônes améliorées */
 .icon {
     position:absolute;
-    font-size:24px;
-    animation: float 6s infinite ease-in-out;
+    font-size:28px;
+    animation: rise 4s ease-out forwards;
 }
 
-@keyframes float {
-    0% { transform: translateY(0); opacity:0.3;}
-    50% { transform: translateY(-40px); opacity:1;}
-    100% { transform: translateY(0); opacity:0.3;}
+@keyframes rise {
+    0% {
+        transform: translateY(0) scale(0.5) rotate(0deg);
+        opacity: 0;
+    }
+    20% {
+        opacity:1;
+    }
+    100% {
+        transform: translateY(-250px) scale(1.5) rotate(360deg);
+        opacity:0;
+    }
 }
 </style>
 </head>
@@ -57,13 +67,13 @@ body {
 
 <div class="moon"></div>
 
-<div class="text-center px-6">
+<div class="text-center px-6 max-w-xl">
 
     <h1 id="title" class="text-4xl md:text-6xl font-bold text-green-400 mb-6">
         🌙 Aïd Moubarak
     </h1>
 
-    <p id="msg" class="text-xl md:text-3xl mb-8 text-gray-300">
+    <p id="msg" class="text-xl md:text-2xl mb-8 text-gray-300">
         Clique pour voir ton message 🎁
     </p>
 
@@ -80,7 +90,7 @@ body {
 </audio>
 
 <script>
-// 🎯 prénom dynamique
+// prénom dynamique
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 
@@ -92,12 +102,16 @@ if(name){
 function start(){
     document.getElementById("music").play();
 
-    // ❌ cacher bouton
     document.getElementById("btn").style.display = "none";
 
-    // ✨ message grand
+    // 💎 message amélioré
     document.getElementById("msg").innerHTML =
-    "✨ Que cette fête t'apporte<br>joie, bonheur et réussite ✨";
+    "✨ À l’occasion de l’Aïd El Fitr 🌙<br><br>" +
+    "Je te souhaite une fête remplie de joie, de paix et de bonheur 🤲<br><br>" +
+    "Que cette journée sacrée t’apporte réussite, santé et prospérité 💫<br><br>" +
+    "🙏 Merci pour ta confiance et ton soutien<br>" +
+    "💼 Garage Zidane Services<br><br>" +
+    "🎉 Aïd Moubarak ! 🎉";
 
     document.getElementById("msg").classList.add("big-text");
 
@@ -123,22 +137,23 @@ function fireworks(){
     },150);
 }
 
-// 🎉 icônes animées
+// 🎉 icônes visibles
 function icons(){
-    const emojis = ["🌙","✨","🎉","🕌","💫","⭐"];
+    const emojis = ["🌙","✨","🎉","🕌","💫","⭐","🤲"];
 
     setInterval(()=>{
         let icon = document.createElement("div");
         icon.className = "icon";
         icon.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
 
-        icon.style.left = Math.random()*window.innerWidth+"px";
-        icon.style.top = window.innerHeight+"px";
+        // ✅ commencer visible en bas
+        icon.style.left = Math.random()*window.innerWidth + "px";
+        icon.style.bottom = "0px";
 
         document.body.appendChild(icon);
 
-        setTimeout(()=>icon.remove(),6000);
-    },500);
+        setTimeout(()=>icon.remove(),4000);
+    },300);
 }
 
 // ⭐ étoiles fond
