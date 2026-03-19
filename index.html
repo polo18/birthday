@@ -64,79 +64,83 @@ body {
 
 <body class="text-white text-center flex items-center justify-center min-h-screen">
 
-<!-- 🎶 AUDIO -->
-<audio id="music" loop>
-    <source src="eidunsaeed.MP3" type="audio/mpeg">
-</audio>
+  <!-- 🎶 AUDIO -->
+  <audio id="music" loop>
+      <source src="eidunsaeed.MP3" type="audio/mpeg">
+  </audio>
 
-<!-- 🚪 INTRO -->
-<div id="intro">
-  <h1 class="text-3xl mb-6 glow">✨ Message spécial ✨</h1>
+  <!-- 🚪 INTRO -->
+  <div id="intro">
+    <h1 class="text-3xl mb-6 glow">✨ Message spécial ✨</h1>
+  
+    <button onclick="startApp()" class="btn-open bg-green-500 px-6 py-3 rounded-xl text-xl shadow-lg">
+      🎁 Ouvrir
+    </button>
+  </div>
 
-  <button onclick="startApp()" 
-  class="btn-open bg-green-500 px-6 py-3 rounded-xl text-xl shadow-lg">
-    🎁 Ouvrir
-  </button>
-</div>
+  <!-- 💌 CONTENU -->
+  <div id="mainContent" class="px-4">
 
-<!-- 💌 CONTENU -->
-<div id="mainContent" class="px-4">
+    <h1 class="text-4xl md:text-6xl font-bold glow mb-6">
+    🌙 AÏD MOUBARAK 🌙
+    </h1>
 
-<h1 class="text-4xl md:text-6xl font-bold glow mb-6">
-🌙 AÏD MOUBARAK 🌙
-</h1>
+    <div class="bg-white/10 p-6 rounded-xl max-w-lg mx-auto">
+      <p class="text-lg leading-relaxed">
+        🕌 Que cette fête sacrée illumine votre cœur  
+        <br><br>
 
-<div class="bg-white/10 p-6 rounded-xl max-w-lg mx-auto">
-<p class="text-lg leading-relaxed">
+        💖 Santé, bonheur et réussite  
+        <br><br>
+        🌙 Paix et bénédictions infinies  
+        <br><br>
+        🎉 Profitez avec votre famille  
+        
+        <br><br>
+        <span class="text-green-400 text-2xl font-bold">
+        ✨ AÏD MUBARAK ✨ <br>By Mouloud ZIDANE
+        </span>
+      </p>
+    </div>
+    <!-- 🎉 ICÔNES BAS -->
+    <div class="icons-bottom fixed bottom-4 left-0 right-0 flex justify-center gap-6">
+      <span>🕌</span>
+      <span>🌙</span>
+      <span>🎉</span>
+      <span>✨</span>
+      <span>🤲</span>
+    </div>
+  </div>
 
-🕌 Que cette fête sacrée illumine votre cœur  
-<br><br>
-
-💖 Santé, bonheur et réussite  
-<br><br>
-🌙 Paix et bénédictions infinies  
-<br><br>
-🎉 Profitez avec votre famille  
-
-<br><br>
-<span class="text-green-400 text-2xl font-bold">
-✨ AÏD MUBARAK ✨ <br>By Mouloud ZIDANE
-</span>
-
-</p>
-</div>
-
-</div>
-
-<!-- 🎇 SCRIPT -->
-<script>
-function startApp() {
-
-  // lancer musique
-  document.getElementById("music").play();
-
-  // cacher intro
-  document.getElementById("intro").style.opacity = "0";
-  setTimeout(() => {
-    document.getElementById("intro").style.display = "none";
-  }, 800);
-
-  // afficher contenu
-  setTimeout(() => {
-    document.getElementById("mainContent").style.opacity = "1";
-  }, 500);
-
-  // confetti
-  for(let i=0;i<40;i++){
-    let c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"%";
-    c.style.animationDuration=(2+Math.random()*3)+"s";
-    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-    document.body.appendChild(c);
+  <!-- 🎇 SCRIPT -->
+  <script>
+  function startApp() {
+  
+    // lancer musique
+    document.getElementById("music").play();
+  
+    // cacher intro
+    document.getElementById("intro").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("intro").style.display = "none";
+    }, 800);
+  
+    // afficher contenu
+    setTimeout(() => {
+      document.getElementById("mainContent").style.opacity = "1";
+    }, 500);
+  
+    // confetti
+    for(let i=0;i<40;i++){
+      let c=document.createElement("div");
+      c.className="confetti";
+      c.style.left=Math.random()*100+"%";
+      c.style.animationDuration=(2+Math.random()*3)+"s";
+      c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+      document.body.appendChild(c);
+    }
   }
-}
-</script>
+  </script>
 
 </body>
 </html>
