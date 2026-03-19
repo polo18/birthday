@@ -64,7 +64,22 @@ body {
 <audio id="music" loop>
     <source src="eidunsaeed.MP3" type="audio/mpeg">
 </audio>
+<!-- Bouton son -->
 
+<button id="playBtn" class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-xl shadow-lg animate-bounce">
+🔊 Activer le son
+</button>
+
+<script>
+const audio = document.getElementById("music");
+const btn = document.getElementById("playBtn");
+
+btn.addEventListener("click", () => {
+  audio.play();
+  btn.style.display = "none";
+});
+</script>
+  
 <!-- 🎇 CONFETTI -->
 <script>
 for(let i=0;i<40;i++){
@@ -104,7 +119,7 @@ for(let i=0;i<40;i++){
 <br><br>
 
 <span class="text-green-400 font-bold text-2xl">
-✨ AÏD MOUBARAK ✨
+✨ AÏD MOUBARAK ✨ By Mouloud ZIDANE
 </span>
 
 </p>
