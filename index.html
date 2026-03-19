@@ -1,3 +1,4 @@
+```html id="4l5d9k"
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,21 +11,45 @@
 
 <style>
 body {
-    background: linear-gradient(135deg,#020617,#0f172a);
-    overflow:hidden;
-    color:white;
+    background: radial-gradient(circle, #020617, #000);
+    overflow: hidden;
+    color: white;
 }
 
 /* 🌙 lune */
 .moon {
     position:absolute;
-    top:50px;
+    top:40px;
     right:40px;
     width:80px;
     height:80px;
     background:#facc15;
     border-radius:50%;
     box-shadow:0 0 40px #facc15;
+}
+
+/* ✨ animation message */
+.big-text {
+    font-size: 3rem;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #22c55e; }
+    to { text-shadow: 0 0 30px #22c55e; }
+}
+
+/* 🎉 icônes flottantes */
+.icon {
+    position:absolute;
+    font-size:24px;
+    animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity:0.3;}
+    50% { transform: translateY(-40px); opacity:1;}
+    100% { transform: translateY(0); opacity:0.3;}
 }
 </style>
 </head>
@@ -39,12 +64,12 @@ body {
         🌙 Aïd Moubarak
     </h1>
 
-    <p id="msg" class="text-lg md:text-2xl mb-8 text-gray-300">
-        Clique pour découvrir ton message 🎁
+    <p id="msg" class="text-xl md:text-3xl mb-8 text-gray-300">
+        Clique pour voir ton message 🎁
     </p>
 
-    <button onclick="start()" 
-    class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl text-lg shadow-xl">
+    <button id="btn" onclick="start()" 
+    class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl text-lg shadow-xl transition">
         ▶️ Ouvrir
     </button>
 
@@ -56,7 +81,7 @@ body {
 </audio>
 
 <script>
-// prénom dynamique
+// 🎯 prénom dynamique
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 
@@ -64,31 +89,69 @@ if(name){
     document.getElementById("title").innerHTML = "🌙 Aïd Moubarak " + name;
 }
 
+// 🚀 lancement
 function start(){
     document.getElementById("music").play();
 
+    // ❌ cacher bouton
+    document.getElementById("btn").style.display = "none";
+
+    // ✨ message grand
     document.getElementById("msg").innerHTML =
-    "✨ Que cette fête t'apporte joie, paix et réussite ✨";
+    "✨ Que cette fête t'apporte<br>joie, bonheur et réussite ✨";
+
+    document.getElementById("msg").classList.add("big-text");
 
     fireworks();
+    icons();
 }
 
-// 🎆 effet premium
+// 🎆 feu d’artifice
 function fireworks(){
     setInterval(()=>{
         let p=document.createElement("div");
         p.style.position="absolute";
-        p.style.width="4px";
-        p.style.height="4px";
-        p.style.background="white";
+        p.style.width="5px";
+        p.style.height="5px";
+        p.style.background="gold";
         p.style.top=Math.random()*window.innerHeight+"px";
         p.style.left=Math.random()*window.innerWidth+"px";
         p.style.borderRadius="50%";
-        p.style.boxShadow="0 0 15px white";
+        p.style.boxShadow="0 0 20px gold";
         document.body.appendChild(p);
 
-        setTimeout(()=>p.remove(),800);
+        setTimeout(()=>p.remove(),1000);
     },150);
+}
+
+// 🎉 icônes animées
+function icons(){
+    const emojis = ["🌙","✨","🎉","🕌","💫","⭐"];
+
+    setInterval(()=>{
+        let icon = document.createElement("div");
+        icon.className = "icon";
+        icon.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+
+        icon.style.left = Math.random()*window.innerWidth+"px";
+        icon.style.top = window.innerHeight+"px";
+
+        document.body.appendChild(icon);
+
+        setTimeout(()=>icon.remove(),6000);
+    },500);
+}
+
+// ⭐ étoiles fond
+for(let i=0;i<70;i++){
+    let s=document.createElement("div");
+    s.style.position="absolute";
+    s.style.width="2px";
+    s.style.height="2px";
+    s.style.background="white";
+    s.style.top=Math.random()*window.innerHeight+"px";
+    s.style.left=Math.random()*window.innerWidth+"px";
+    document.body.appendChild(s);
 }
 </script>
 
