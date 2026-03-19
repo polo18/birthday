@@ -1,47 +1,142 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Joyeux Anniversaire 👑</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aïd Moubarak</title>
 
-        <!-- PAGE 1 -->
-        <div id="touch">
-            <p class="soft-text">Un petit message pour toi Dacine 🎀</p>
-            <div class="tap">💖</div>
-            <span class="tap-text">Touche ici</span>
-        </div>
+<script src="https://cdn.tailwindcss.com"></script>
 
-        <!-- PAGE 2 -->
-        <div id="surprise" class="hidden">
-            <h1 class="title animate-pop">Joyeux Anniversaire 💘</h1>
+<style>
+    body {
+        background: linear-gradient(135deg, #020617, #0f172a);
+        overflow: hidden;
+    }
 
-            <h2 class="subtitle animate-slide">
-                Pour ma petite princesse 🌸 Dacine
-            </h2>
+    .fade-in {
+        animation: fadeIn 2s ease-in-out;
+    }
 
-            <p class="message animate-fade">
-                En ce jour spécial,
-                je te souhaite une journée douce et lumineuse,
-                remplie de joie, de sourires
-                et de beaux moments 💖
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px);}
+        to { opacity: 1; transform: translateY(0);}
+    }
 
-                Que cette nouvelle année
-                t’apporte le bonheur
-                et de jolies surprises ✨
-            </p>
+    .moon {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, #facc15, #eab308);
+        border-radius: 50%;
+        box-shadow: 0 0 40px #facc15;
+    }
 
-            <div id="date" class="date"></div>
+    .mosque {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(to top, #020617, transparent),
+        url('https://i.imgur.com/6Iej2c3.png') no-repeat center bottom;
+        background-size: contain;
+    }
+</style>
+</head>
 
-            <div class="pulse-icon">💖</div>
-        </div>
+<body class="flex items-center justify-center h-screen text-white">
 
-        <audio id="music" src="birthday-1.mp3"></audio>
-        <canvas id="confetti"></canvas>
+<div class="moon"></div>
+<div class="mosque"></div>
 
-        <script src="script.js"></script>
-    </body>
+<div class="text-center fade-in px-4">
+    <h1 id="title" class="text-3xl md:text-6xl font-bold mb-6 text-green-400">
+        🌙 Aïd Moubarak
+    </h1>
+
+    <p id="message" class="text-lg md:text-2xl mb-6">
+        Que cette fête vous apporte joie et réussite ✨
+    </p>
+
+    <button onclick="playSound()" 
+        class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl text-lg transition mb-4">
+        ▶️ Écouter le message
+    </button>
+
+    <br>
+
+    <a id="whatsappBtn" href="#" target="_blank"
+        class="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-xl text-lg transition">
+        💬 Répondre sur WhatsApp
+    </a>
+</div>
+
+<audio id="audio">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // 🎯 Récupérer le prénom depuis l'URL
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+
+    if(name){
+        document.getElementById("title").innerHTML = "🌙 Aïd Moubarak " + name;
+    }
+
+    // 🎧 Audio
+    function playSound(){
+        document.getElementById("audio").play();
+    }
+
+    // 💬 WhatsApp
+    const phone = "213XXXXXXXXX"; // ton numéro
+    document.getElementById("whatsappBtn").href =
+        "https://wa.me/" + phone + "?text=Aid%20Moubarak%20🙏";
+
+    // ⭐ étoiles
+    for (let i = 0; i < 60; i++) {
+        let star = document.createElement("div");
+        star.style.position = "absolute";
+        star.style.width = "2px";
+        star.style.height = "2px";
+        star.style.background = "white";
+        star.style.top = Math.random() * window.innerHeight + "px";
+        star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.opacity = Math.random();
+        document.body.appendChild(star);
+    }
+
+    // 🎆 feu d’artifice simple
+    setInterval(() => {
+        let fire = document.createElement("div");
+        fire.style.position = "absolute";
+        fire.style.width = "5px";
+        fire.style.height = "5px";
+        fire.style.background = "red";
+        fire.style.top = Math.random() * window.innerHeight + "px";
+        fire.style.left = Math.random() * window.innerWidth + "px";
+        fire.style.borderRadius = "50%";
+        fire.style.boxShadow = "0 0 20px 5px red";
+
+        document.body.appendChild(fire);
+
+        setTimeout(() => fire.remove(), 1000);
+    }, 300);
+
+    // 📊 tracking simple
+    console.log("Visite :", name, new Date());
+
+    // 👉 si tu veux envoyer au serveur Laravel
+    /*
+    fetch('/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name })
+    });
+    */
+</script>
+
+</body>
 </html>
