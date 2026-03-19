@@ -8,134 +8,113 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-    body {
-        background: linear-gradient(135deg, #020617, #0f172a);
-        overflow: hidden;
-    }
+body {
+    background: linear-gradient(135deg,#020617,#020617,#0f172a);
+    overflow: hidden;
+}
 
-    .fade-in {
-        animation: fadeIn 2s ease-in-out;
-    }
+/* animation bulle SMS */
+.bubble {
+    animation: slideUp 1.5s ease;
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px);}
-        to { opacity: 1; transform: translateY(0);}
-    }
+@keyframes slideUp {
+    from {opacity:0; transform:translateY(50px);}
+    to {opacity:1; transform:translateY(0);}
+}
 
-    .moon {
-        position: absolute;
-        top: 50px;
-        right: 50px;
-        width: 100px;
-        height: 100px;
-        background: radial-gradient(circle, #facc15, #eab308);
-        border-radius: 50%;
-        box-shadow: 0 0 40px #facc15;
-    }
-
-    .mosque {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 200px;
-        background: linear-gradient(to top, #020617, transparent),
-        url('https://i.imgur.com/6Iej2c3.png') no-repeat center bottom;
-        background-size: contain;
-    }
+/* lune */
+.moon {
+    position:absolute;
+    top:30px;
+    right:30px;
+    width:80px;
+    height:80px;
+    background:#facc15;
+    border-radius:50%;
+    box-shadow:0 0 40px #facc15;
+}
 </style>
 </head>
 
 <body class="flex items-center justify-center h-screen text-white">
 
 <div class="moon"></div>
-<div class="mosque"></div>
 
-<div class="text-center fade-in px-4">
-    <h1 id="title" class="text-3xl md:text-6xl font-bold mb-6 text-green-400">
-        🌙 Aïd Moubarak
-    </h1>
+<div class="w-full max-w-md p-4">
 
-    <p id="message" class="text-lg md:text-2xl mb-6">
-        Que cette fête vous apporte joie et réussite ✨
-    </p>
+    <!-- message style SMS -->
+    <div class="bg-gray-800 p-4 rounded-2xl shadow-xl space-y-3">
 
-    <button onclick="playSound()" 
-        class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl text-lg transition mb-4">
-        ▶️ Écouter le message
-    </button>
+        <div class="bubble bg-green-500 text-black p-3 rounded-xl w-fit">
+            🌙 Aïd Moubarak
+        </div>
 
-    <br>
+        <div id="msg" class="bubble bg-gray-700 p-3 rounded-xl w-fit">
+            Que cette fête vous apporte joie et réussite ✨
+        </div>
 
-    <a id="whatsappBtn" href="#" target="_blank"
-        class="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-xl text-lg transition">
-        💬 Répondre sur WhatsApp
-    </a>
+        <div class="bubble text-sm text-gray-400">
+            - Garage Zidane Services
+        </div>
+    </div>
+
+    <!-- bouton -->
+    <div class="text-center mt-6">
+        <button onclick="startExperience()" 
+        class="bg-green-500 px-6 py-3 rounded-xl">
+        ▶️ Voir le message
+        </button>
+    </div>
 </div>
 
-<audio id="audio">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+<!-- 🎧 musique -->
+<audio id="music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9bde19.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-    // 🎯 Récupérer le prénom depuis l'URL
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get("name");
+// prénom dynamique
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
 
-    if(name){
-        document.getElementById("title").innerHTML = "🌙 Aïd Moubarak " + name;
+if(name){
+    document.getElementById("msg").innerHTML =
+    "Aïd Moubarak " + name + " 🌙✨<br>Que cette fête t'apporte bonheur";
+}
+
+// lancer expérience
+function startExperience(){
+    document.getElementById("music").play();
+
+    // 🎆 explosion effet
+    for(let i=0;i<30;i++){
+        let p=document.createElement("div");
+        p.style.position="absolute";
+        p.style.width="5px";
+        p.style.height="5px";
+        p.style.background="gold";
+        p.style.top=Math.random()*window.innerHeight+"px";
+        p.style.left=Math.random()*window.innerWidth+"px";
+        p.style.borderRadius="50%";
+        p.style.boxShadow="0 0 20px gold";
+        document.body.appendChild(p);
+
+        setTimeout(()=>p.remove(),1000);
     }
+}
 
-    // 🎧 Audio
-    function playSound(){
-        document.getElementById("audio").play();
-    }
-
-    // 💬 WhatsApp
-    const phone = "213XXXXXXXXX"; // ton numéro
-    document.getElementById("whatsappBtn").href =
-        "https://wa.me/" + phone + "?text=Aid%20Moubarak%20🙏";
-
-    // ⭐ étoiles
-    for (let i = 0; i < 60; i++) {
-        let star = document.createElement("div");
-        star.style.position = "absolute";
-        star.style.width = "2px";
-        star.style.height = "2px";
-        star.style.background = "white";
-        star.style.top = Math.random() * window.innerHeight + "px";
-        star.style.left = Math.random() * window.innerWidth + "px";
-        star.style.opacity = Math.random();
-        document.body.appendChild(star);
-    }
-
-    // 🎆 feu d’artifice simple
-    setInterval(() => {
-        let fire = document.createElement("div");
-        fire.style.position = "absolute";
-        fire.style.width = "5px";
-        fire.style.height = "5px";
-        fire.style.background = "red";
-        fire.style.top = Math.random() * window.innerHeight + "px";
-        fire.style.left = Math.random() * window.innerWidth + "px";
-        fire.style.borderRadius = "50%";
-        fire.style.boxShadow = "0 0 20px 5px red";
-
-        document.body.appendChild(fire);
-
-        setTimeout(() => fire.remove(), 1000);
-    }, 300);
-
-    // 📊 tracking simple
-    console.log("Visite :", name, new Date());
-
-    // 👉 si tu veux envoyer au serveur Laravel
-    /*
-    fetch('/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name })
-    });
-    */
+// étoiles
+for(let i=0;i<50;i++){
+    let s=document.createElement("div");
+    s.style.position="absolute";
+    s.style.width="2px";
+    s.style.height="2px";
+    s.style.background="white";
+    s.style.top=Math.random()*window.innerHeight+"px";
+    s.style.left=Math.random()*window.innerWidth+"px";
+    document.body.appendChild(s);
+}
 </script>
 
 </body>
